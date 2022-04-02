@@ -1,6 +1,9 @@
 name: 'Install CNS11643 fonts'
 description: 'Install CNS11643 fonts'
 author: hms5232
+branding:
+  icon: type
+  color: yellow
 inputs:
   kai:
     description: 'Install 正楷體 or not'
