@@ -13,29 +13,33 @@ inputs:
     description: 'Install 正宋體 or not'
     required: false
     default: true
-defaults:
-  run:
-    shell: bash
 runs:
   using: "composite"
   steps:
-    - run: ./init.sh
+    - run: mkdir $HOME/.fonts
       shell: bash
     - run: |
-        echo "::group::progress detail"
-        ./download.sh || echo "Download completed"
+        echo "::group::download detail"
+        wget -O cns11643.zip http://www.cns11643.gov.tw/AIDB/Open_Data.zip
         echo "::endgroup::"
       shell: bash
-    - run: ./copy.sh kai
+    - run: |
+        hash=$(sha1sum cns11643.zip | cut -d ' ' -f 1)
+        echo -e "\n The SHA1 value of downloaded file is \n"
+        echo -e "\t>>>>> $hash <<<<<\n"
+      shell: bash
+    - run: unzip cns11643.zip || echo "unzip completed"
+      shell: bash
+    - run: cp -i Open_Data/Fonts/TW-Kai-*.ttf $HOME/.fonts
       shell: bash
       if:  ${{ github.event.inputs.kai == 'true' }}
-    - run: ./copy.sh sung
+    - run: cp -i Open_Data/Fonts/TW-Sung-*.ttf $HOME/.fonts
       shell: bash
       if:  ${{ github.event.inputs.sung == 'true' }}
     - run: |
         echo "::group::update fonts"
-        ./install.sh
+        sudo fc-cache -fv
         echo "::endgroup::"
       shell: bash
-    - run: ./clear.sh
+    - run: rm cns11643.zip; rm -r Open_Data/
       shell: bash
