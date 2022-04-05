@@ -16,35 +16,23 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: mkdir $HOME/.fonts
+    - run: ${{ github.action_path }}/init.sh
       shell: bash
     - run: |
-        echo "::group::download detail"
-        wget -O cns11643.zip http://www.cns11643.gov.tw/AIDB/Open_Data.zip
+        echo "::group::progress detail"
+        ${{ github.action_path }}/download.sh || echo "Download completed"
         echo "::endgroup::"
       shell: bash
-    - name: hash
-      run: |
-        hash=$(sha1sum cns11643.zip | cut -d ' ' -f 1)
-        echo -e "\n The SHA1 value of downloaded file is \n"
-        echo -e "\t>>>>> $hash <<<<<\n"
-      shell: bash
-    - run: |
-        echo "::group::unzip"
-        unzip cns11643.zip || echo "unzip completed"
-        echo "::endgroup::"
-      shell: bash
-    - run: cp -i Open_Data/Fonts/TW-Kai-*.ttf $HOME/.fonts
+    - run: ${{ github.action_path }}/copy.sh kai
       shell: bash
       if:  ${{ github.event.inputs.kai == 'true' }}
-    - run: cp -i Open_Data/Fonts/TW-Sung-*.ttf $HOME/.fonts
+    - run: ${{ github.action_path }}/copy.sh sung
       shell: bash
       if:  ${{ github.event.inputs.sung == 'true' }}
     - run: |
         echo "::group::update fonts"
-        sudo fc-cache -fv
+        ${{ github.action_path }}/install.sh
         echo "::endgroup::"
       shell: bash
-    - name: clear
-      run: rm cns11643.zip; rm -r Open_Data/
+    - run: ${{ github.action_path }}/clear.sh
       shell: bash
