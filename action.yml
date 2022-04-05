@@ -21,7 +21,10 @@ runs:
   steps:
     - run: ./init.sh
       shell: bash
-    - run: ./download.sh || echo "Download completed"
+    - run: |
+        echo "::group::progress detail"
+        ./download.sh || echo "Download completed"
+        echo "::endgroup::"
       shell: bash
     - run: ./copy.sh kai
       shell: bash
@@ -29,7 +32,10 @@ runs:
     - run: ./copy.sh sung
       shell: bash
       if:  ${{ github.event.inputs.sung == 'true' }}
-    - run: ./install.sh
+    - run: |
+        echo "::group::update fonts"
+        ./install.sh
+        echo "::endgroup::"
       shell: bash
     - run: ./clear.sh
       shell: bash
