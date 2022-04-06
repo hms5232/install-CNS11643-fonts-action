@@ -19,7 +19,7 @@ runs:
     - run: ${{ github.action_path }}/init.sh
       shell: bash
     - run: |
-        echo "::group::progress detail"
+        echo "::group::download and unzip"
         ${{ github.action_path }}/download.sh || echo "Download completed"
         echo "::endgroup::"
       shell: bash
