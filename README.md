@@ -9,16 +9,21 @@
 最基本的設定方式：
 ```yaml
 steps:
-  - uses:  hms5232/install-CNS11643-fonts-action@v0  # 依照需求設定版本號或是 SHA
+  - uses: hms5232/install-CNS11643-fonts-action@v1  # 依照需求設定版本號或是 SHA
 ```
 
-此方式會安裝正楷體及正宋體。
-
-### 指定安裝字型
-如果想指定要安裝的字型：
+顯示 action name：
 ```yaml
 steps:
-  - uses:  hms5232/install-CNS11643-fonts-action@v0  # 依照需求設定版本號或是 SHA
+  - name: Install CNS11643 fonts
+    uses: hms5232/install-CNS11643-fonts-action@v1  # 依照需求設定版本號或是 SHA
+```
+
+### 指定安裝字型
+在不指定的情況下，會安裝正楷體及正宋體。如果想指定要安裝的字型：
+```yaml
+steps:
+  - uses: hms5232/install-CNS11643-fonts-action@v1  # 依照需求設定版本號或是 SHA
     with:
       kai: 'true'  # 正楷體
       sung: 'true'  # 正宋體
@@ -29,7 +34,7 @@ steps:
 細節請見各項設定的後方說明：
 ```yaml
 steps:
-  - uses:  hms5232/install-CNS11643-fonts-action@v0  # 依照需求設定版本號或是 SHA
+  - uses: hms5232/install-CNS11643-fonts-action@v1  # 依照需求設定版本號或是 SHA
     with:
       kai: 'true'  # 正楷體
       sung: 'true'  # 正宋體
@@ -38,6 +43,11 @@ steps:
   - name: your next step
     if: always()  # 避免字型安裝失敗導致中斷流程
 ```
+
+## Release 策略
+本專案依照語意化版本號（SemVer）更新版本號。
+
+主版本號會切出分支管理，例如：`v1`；次版及修補版本號則使用 tag 功能，例如：`v1.0.6`。
 
 ## 緣起
 先前在 Github Action 上執行一些測試時，偶然發現和 local 執行的結果不同。一查發現原來是在 runner 環境中沒有中文字型的關係，所以所有中文字的部分都變成了方框。上網找了半天也沒找到有比較快的解法，就使用之前寫過的快速安裝 shell 手稿，在開始測試之前先執行安裝就解決了。
@@ -52,4 +62,4 @@ steps:
 ## 授權
 Copyright © 2022 hms5232
 
-本項目使用 [Apache 2.0 開源許可證](LICENSE)；而 CNS11643 相關使用規範請依照[〈政府資料開放授權條款〉](https://data.gov.tw/license)相關規定。
+本專案使用 [Apache 2.0 開源許可證](LICENSE)；而 CNS11643 相關使用規範請依照[〈政府資料開放授權條款〉](https://data.gov.tw/license)相關規定。
