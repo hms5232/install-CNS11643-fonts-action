@@ -1,2 +1,2 @@
-**/*.yml linguist-detectable
-**/*.yaml linguist-detectable
+action.yml linguist-detectable
+action.yaml linguist-detectable
