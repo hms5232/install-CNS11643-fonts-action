@@ -16,17 +16,20 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/init.sh
+    - name: Init environment
+      run: ${{ github.action_path }}/init.sh
       shell: bash
     - run: |
         echo "::group::download and unzip"
         ${{ github.action_path }}/download.sh || echo "Download completed"
         echo "::endgroup::"
       shell: bash
-    - run: ${{ github.action_path }}/copy.sh kai
+    - name: Prepare kai font
+      run: ${{ github.action_path }}/copy.sh kai
       shell: bash
       if:  ${{ inputs.kai == 'true' }}
-    - run: ${{ github.action_path }}/copy.sh sung
+    - name: Prepare sung font
+      run: ${{ github.action_path }}/copy.sh sung
       shell: bash
       if:  ${{ inputs.sung == 'true' }}
     - run: |
@@ -34,5 +37,6 @@ runs:
         ${{ github.action_path }}/install.sh
         echo "::endgroup::"
       shell: bash
-    - run: ${{ github.action_path }}/clear.sh
+    - name: Clear files
+      run: ${{ github.action_path }}/clear.sh
       shell: bash
