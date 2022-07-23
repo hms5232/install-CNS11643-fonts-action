@@ -1,6 +1,15 @@
 #!/bin/bash
 
-wget -O cns11643.zip http://www.cns11643.gov.tw/AIDB/Open_Data.zip
+
+while getopts 'f:' flag; do
+  case "${flag}" in
+    f) flags="${OPTARG}" ;;
+    *) print_usage
+       exit 1 ;;
+  esac
+done
+
+wget -O cns11643.zip ${flags} http://www.cns11643.gov.tw/AIDB/Open_Data.zip
 
 # let's hash it~
 # but we don't have offical sha1sum file Orz

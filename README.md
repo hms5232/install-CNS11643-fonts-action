@@ -30,6 +30,37 @@ steps:
 ```
 ※由於 Github action 的問題，目前還不支援輸入布林值，故請使用字串！詳見：[actions/runner#1483](https://github.com/actions/runner/issues/1483)
 
+### 客製下載旗標（flag）
+下載字型的工具是 wget，如果有 debug 或其他需求，可以使用 `download-flag` 參數指示 wget 輸出或行為。
+
+預設情況：
+```yaml
+steps:
+  - uses: hms5232/install-CNS11643-fonts-action@v1  # 依照需求設定版本號或是 SHA
+    with:
+      download-flag: '-nv'  # 本 action 預設值，代表 no verbose
+```
+
+通常輸出（正常使用 wget 沒特別指定時）：
+```yaml
+steps:
+  - uses: hms5232/install-CNS11643-fonts-action@v1  # 依照需求設定版本號或是 SHA
+    with:
+      download-flag: '-v'  # wget 預設值，代表 verbose
+```
+
+debug 輸出：
+```yaml
+steps:
+  - uses: hms5232/install-CNS11643-fonts-action@v1  # 依照需求設定版本號或是 SHA
+    with:
+      download-flag: '-d'  # 代表 debug
+```
+
+其他參數請見 wget 文件。
+
+由於此參數為直接注入輸入指令中，請小心使用！
+
 ### 進階設定建議
 細節請見各項設定的後方說明：
 ```yaml

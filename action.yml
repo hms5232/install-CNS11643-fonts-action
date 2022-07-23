@@ -13,6 +13,10 @@ inputs:
     description: 'Install 正宋體 or not'
     required: false
     default: 'true'
+  download-flag:
+    description: 'Add flag(s) when use wget'
+    required: false
+    default: '-nv'
 runs:
   using: "composite"
   steps:
@@ -20,7 +24,7 @@ runs:
       shell: bash
     - run: |
         echo "::group::download and unzip"
-        ${{ github.action_path }}/download.sh || echo "Download completed"
+        ${{ github.action_path }}/download.sh -f "${{ inputs.download-flag }}" || echo "Download completed"
         echo "::endgroup::"
       shell: bash
     - run: ${{ github.action_path }}/copy.sh kai
