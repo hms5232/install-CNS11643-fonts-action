@@ -8,11 +8,11 @@ inputs:
   kai:
     description: 'Install 正楷體 or not'
     required: false
-    default: 'true'
+    default: true
   sung:
     description: 'Install 正宋體 or not'
     required: false
-    default: 'true'
+    default: true
   download-flag:
     description: 'Add flag(s) when use wget'
     required: false
@@ -29,10 +29,10 @@ runs:
       shell: bash
     - run: ${{ github.action_path }}/copy.sh kai
       shell: bash
-      if:  ${{ inputs.kai == 'true' }}
+      if:  ${{ inputs.kai }}
     - run: ${{ github.action_path }}/copy.sh sung
       shell: bash
-      if:  ${{ inputs.sung == 'true' }}
+      if:  ${{ inputs.sung }}
     - run: |
         echo "::group::update fonts"
         ${{ github.action_path }}/install.sh
