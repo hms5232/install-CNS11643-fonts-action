@@ -29,10 +29,10 @@ runs:
       shell: bash
     - run: ${{ github.action_path }}/copy.sh kai
       shell: bash
-      if:  ${{ inputs.kai }}
+      if:  ${{ inputs.kai == true }}
     - run: ${{ github.action_path }}/copy.sh sung
       shell: bash
-      if:  ${{ inputs.sung }}
+      if:  ${{ inputs.sung == true }}
     - run: |
         echo "::group::update fonts"
         ${{ github.action_path }}/install.sh
