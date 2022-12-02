@@ -28,7 +28,8 @@ steps:
       kai: 'true'  # 正楷體
       sung: 'true'  # 正宋體
 ```
-※由於 Github action 的問題，目前還不支援輸入布林值，故請使用字串！詳見：[actions/runner#1483](https://github.com/actions/runner/issues/1483)
+~~※由於 Github action 的問題，目前還不支援輸入布林值，故請使用字串！詳見：[actions/runner#1483](https://github.com/actions/runner/issues/1483)~~  
+:warning: 此問題在其他類型的 action 修復了，但在複合（composite）action 則還沒，詳細請見：https://github.com/actions/runner/issues/2238
 
 ### 客製下載旗標（flag）
 下載字型的工具是 wget，如果有 debug 或其他需求，可以使用 `download-flag` 參數指示 wget 輸出或行為。
