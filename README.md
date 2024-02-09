@@ -1,5 +1,5 @@
 # install-CNS11643-fonts-action
-在 Github Action 執行時安裝 [CNS11643 全字庫字型](https://data.gov.tw/dataset/5961)，以利環境有正確的中文字型可用
+在 GitHub action 執行時安裝 [CNS11643 全字庫字型](https://data.gov.tw/dataset/5961)，以利環境有正確的中文字型可用
 
 ## 需求
 * Ubuntu runner（已測試完成）
@@ -28,7 +28,7 @@ steps:
       kai: 'true'  # 正楷體
       sung: 'true'  # 正宋體
 ```
-~~※由於 Github action 的問題，目前還不支援輸入布林值，故請使用字串！詳見：[actions/runner#1483](https://github.com/actions/runner/issues/1483)~~  
+~~※由於 GitHub action 的問題，目前還不支援輸入布林值，故請使用字串！詳見：[actions/runner#1483](https://github.com/actions/runner/issues/1483)~~  
 :warning: 此問題在其他類型的 action 修復了，但在複合（composite）action 則還沒，詳細請見：https://github.com/actions/runner/issues/2238
 
 ### 客製下載旗標（flag）
@@ -82,7 +82,7 @@ steps:
 主版本號會切出分支管理，例如：`v1`；次版及修補版本號則使用 tag 功能，例如：`v1.0.6`。
 
 ## 緣起
-先前在 Github Action 上執行一些測試時，偶然發現和 local 執行的結果不同。一查發現原來是在 runner 環境中沒有中文字型的關係，所以所有中文字的部分都變成了方框。上網找了半天也沒找到有比較快的解法，就使用之前寫過的快速安裝 shell 手稿，在開始測試之前先執行安裝就解決了。
+先前在 GitHub action 上執行一些測試時，偶然發現和 local 執行的結果不同。一查發現原來是在 runner 環境中沒有中文字型的關係，所以所有中文字的部分都變成了方框。上網找了半天也沒找到有比較快的解法，就使用之前寫過的快速安裝 shell 手稿，在開始測試之前先執行安裝就解決了。
 
 雖然這個需求只要不要在 runner 中使用中文，換成英文就好了。但畢竟有一個解法在那邊，就想說動手做成一個可以重複使用的 composite action 給大家使用吧！如果也有出現和我相同需求的人，就可以省下時間去研究安裝中文字型的時間（另外還有很多人忽略的，很多字型都不是免費或是可以合法在這種狀況下使用的）結果就是在你們眼前的 repo，希望在這個問題上可以幫上忙。
 
