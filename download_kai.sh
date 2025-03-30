@@ -9,12 +9,18 @@ while getopts 'f:' flag; do
   esac
 done
 
-wget -O cns11643.zip ${flags} http://www.cns11643.gov.tw/AIDB/Open_Data.zip
+wget -O Fonts_Kai.zip ${flags} wget https://www.cns11643.gov.tw/opendata/Fonts_Kai.zip
 
 # let's hash it~
 # but we don't have offical sha1sum file Orz
-hash=$(sha1sum cns11643.zip | cut -d ' ' -f 1)
+hash=$(sha1sum Fonts_Kai.zip | cut -d ' ' -f 1)
 echo -e "\n The SHA1 value of downloaded file is \n"
 echo -e "\t>>>>> $hash <<<<<\n"
 
-unzip cns11643.zip
+if [ ! -d "kai/" ] ; then
+  mkdir kai
+fi
+
+unzip Fonts_Kai.zip -d kai
+
+cp -i kai/TW-Kai-*.ttf $HOME/.fonts

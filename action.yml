@@ -23,14 +23,15 @@ runs:
     - run: ${{ github.action_path }}/init.sh
       shell: bash
     - run: |
-        echo "::group::download and unzip"
-        ${{ github.action_path }}/download.sh -f "${{ inputs.download-flag }}" || echo "Download completed"
+        echo "::group::download and unzip Kai"
+        ${{ github.action_path }}/download_kai.sh kai
         echo "::endgroup::"
       shell: bash
-    - run: ${{ github.action_path }}/copy.sh kai
-      shell: bash
       if:  ${{ inputs.kai == 'true' }}
-    - run: ${{ github.action_path }}/copy.sh sung
+    - run: |
+        echo "::group::download and unzip Sung"
+        ${{ github.action_path }}/download_sung.sh sung
+        echo "::endgroup::"
       shell: bash
       if:  ${{ inputs.sung == 'true' }}
     - run: |

@@ -1,4 +1,4 @@
 #!/bin/bash
 
-rm cns11643.zip
-rm -r Open_Data/
+rm *.zip
+rm -r kai/ sung/
