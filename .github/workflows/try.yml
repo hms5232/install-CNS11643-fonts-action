@@ -1,0 +1,36 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Try action
+
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      kai:
+        description: 'Install 正楷體 or not'
+        required: false
+        default: 'true'
+      sung:
+        description: 'Install 正宋體 or not'
+        required: false
+        default: 'true'
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install CNS11643 fonts
+        uses: hms5232/install-CNS11643-fonts-action@${{ github.sha }}
+        with:
+          kai: ${{ inputs.kai }}
+          sung: ${{ inputs.sung }}
+      - name: Check Kai
+        run: fc-list | grep TW-Sung-
+        shell: bash
+        if:  ${{ inputs.kai == 'true' }}
+      - name: Check Sung
+        run: fc-list | grep TW-Kai-
+        shell: bash
+        if:  ${{ inputs.sung == 'true' }}
