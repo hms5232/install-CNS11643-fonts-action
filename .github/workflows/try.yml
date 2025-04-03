@@ -21,8 +21,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
       - name: Install CNS11643 fonts
-        uses: hms5232/install-CNS11643-fonts-action@${{ github.sha }}
+        uses: ./
         with:
           kai: ${{ inputs.kai }}
           sung: ${{ inputs.sung }}
