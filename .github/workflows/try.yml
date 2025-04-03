@@ -28,10 +28,10 @@ jobs:
           kai: ${{ inputs.kai }}
           sung: ${{ inputs.sung }}
       - name: Check Kai
-        run: fc-list | grep TW-Sung-
+        run: fc-list | grep TW-Kai-
         shell: bash
         if:  ${{ inputs.kai == 'true' }}
       - name: Check Sung
-        run: fc-list | grep TW-Kai-
+        run: fc-list | grep TW-Sung-
         shell: bash
         if:  ${{ inputs.sung == 'true' }}
