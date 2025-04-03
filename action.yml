@@ -24,13 +24,13 @@ runs:
       shell: bash
     - run: |
         echo "::group::download and unzip Kai"
-        ${{ github.action_path }}/download_kai.sh kai
+        ${{ github.action_path }}/download_kai.sh -f "${{ inputs.download-flag }}"
         echo "::endgroup::"
       shell: bash
       if:  ${{ inputs.kai == 'true' }}
     - run: |
         echo "::group::download and unzip Sung"
-        ${{ github.action_path }}/download_sung.sh sung
+        ${{ github.action_path }}/download_sung.sh -f "${{ inputs.download-flag }}"
         echo "::endgroup::"
       shell: bash
       if:  ${{ inputs.sung == 'true' }}
