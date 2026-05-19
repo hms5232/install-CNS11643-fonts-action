@@ -9,7 +9,11 @@ while getopts 'f:' flag; do
   esac
 done
 
-wget -O Fonts_Kai.zip ${flags} https://www.cns11643.gov.tw/opendata/Fonts_Kai.zip
+if [ -f "Fonts_Kai.zip" ]; then
+  echo "Use exists Fonts_Kai.zip"
+else
+  wget -O Fonts_Kai.zip ${flags} https://www.cns11643.gov.tw/opendata/Fonts_Kai.zip
+fi
 
 # let's hash it~
 # but we don't have offical sha1sum file Orz

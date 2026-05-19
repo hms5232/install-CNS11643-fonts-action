@@ -17,27 +17,59 @@ inputs:
     description: 'Add flag(s) when use wget'
     required: false
     default: '-nv'
+  cache:
+    description: '快取已經下載過的字型'
+    required: false
+    default: 'true'
 runs:
   using: "composite"
   steps:
     - run: ${{ github.action_path }}/init.sh
       shell: bash
+
+    - name: Restore cached Kai fonts
+      uses: actions/cache/restore@v5
+      with:
+        path: Fonts_Kai.zip
+        key: kai
+      if:  ${{ inputs.kai == 'true' && inputs.cache == 'true' }}
     - run: |
         echo "::group::download and unzip Kai"
         ${{ github.action_path }}/download_kai.sh -f "${{ inputs.download-flag }}"
         echo "::endgroup::"
       shell: bash
       if:  ${{ inputs.kai == 'true' }}
+    - name: Save cached Kai fonts
+      uses: actions/cache/save@v5
+      with:
+        path: Fonts_Kai.zip
+        key: kai
+      if:  ${{ inputs.kai == 'true' && inputs.cache == 'true' }}
+
+    - name: Restore cached Sung fonts
+      uses: actions/cache/restore@v5
+      with:
+        path: Fonts_Sung.zip
+        key: sung
+      if:  ${{ inputs.sung == 'true' && inputs.cache == 'true' }}
     - run: |
         echo "::group::download and unzip Sung"
         ${{ github.action_path }}/download_sung.sh -f "${{ inputs.download-flag }}"
         echo "::endgroup::"
       shell: bash
       if:  ${{ inputs.sung == 'true' }}
+    - name: Save cached Sung fonts
+      uses: actions/cache/save@v5
+      with:
+        path: Fonts_Sung.zip
+        key: sung
+      if:  ${{ inputs.sung == 'true' && inputs.cache == 'true' }}
+
     - run: |
         echo "::group::update fonts"
         ${{ github.action_path }}/install.sh
         echo "::endgroup::"
       shell: bash
+
     - run: ${{ github.action_path }}/clear.sh
       shell: bash

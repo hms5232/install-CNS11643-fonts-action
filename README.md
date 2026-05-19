@@ -71,6 +71,7 @@ steps:
       kai: 'true'  # 正楷體
       sung: 'true'  # 正宋體
     timeout-minutes: 10  # 因為是即時下載，為避免因為伺服器問題卡住流程或耗盡額度，建議設定一個執行時限。此範例為十分鐘
+    cache: 'true' # 是否快取下載過的字型，如為假則每次執行都會重新下載字型檔案
   # 下一個步驟
   - name: your next step
     if: always()  # 避免字型安裝失敗導致中斷流程
