@@ -28,6 +28,7 @@ runs:
       shell: bash
 
     - name: Restore cached Kai fonts
+      id: cache-restore-kai
       uses: actions/cache/restore@v5
       with:
         path: Fonts_Kai.zip
@@ -44,9 +45,10 @@ runs:
       with:
         path: Fonts_Kai.zip
         key: kai
-      if:  ${{ inputs.kai == 'true' && inputs.cache == 'true' }}
+      if:  ${{ inputs.kai == 'true' && inputs.cache == 'true' && steps.cache-restore-kai.outputs.cache-hit != 'true' }}
 
     - name: Restore cached Sung fonts
+      id: cache-restore-sung
       uses: actions/cache/restore@v5
       with:
         path: Fonts_Sung.zip
@@ -63,7 +65,7 @@ runs:
       with:
         path: Fonts_Sung.zip
         key: sung
-      if:  ${{ inputs.sung == 'true' && inputs.cache == 'true' }}
+      if:  ${{ inputs.sung == 'true' && inputs.cache == 'true' && steps.cache-restore-sung.outputs.cache-hit != 'true' }}
 
     - run: |
         echo "::group::update fonts"
