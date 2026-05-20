@@ -31,6 +31,19 @@ steps:
 ~~※由於 GitHub action 的問題，目前還不支援輸入布林值，故請使用字串！詳見：[actions/runner#1483](https://github.com/actions/runner/issues/1483)~~  
 :warning: 此問題在其他類型的 action 修復了，但在複合（composite）action 則還沒，詳細請見：https://github.com/actions/runner/issues/2238
 
+### 快取字型
+
+由於即時下載字型檔案所費不貲，從 1.2.0 版開始增加了快取功能。只要有執行過一次且快取沒過期或是因為額度問題被刪除，就會使用曾經下載過的字型檔案快取：
+
+```yaml
+steps:
+  - uses: hms5232/install-CNS11643-fonts-action@v1  # 依照需求設定版本號或是 SHA
+    with:
+      cache: 'true' # 是否快取下載過的字型，如為假則每次執行都會重新下載字型檔案。預設開啟
+```
+
+如果要確認快取中的字型檔案雜湊值，可從執行記錄檔標題為 `download and unzip {font name}` 的聚集訊息（group logs）查看，其中 `{font name}` 為對應的字型名稱。
+
 ### 客製下載旗標（flag）
 下載字型的工具是 wget，如果有 debug 或其他需求，可以使用 `download-flag` 參數指示 wget 輸出或行為。
 
@@ -70,8 +83,8 @@ steps:
     with:
       kai: 'true'  # 正楷體
       sung: 'true'  # 正宋體
+      cache: 'true' # 是否快取下載過的字型，如為假則每次執行都會重新下載字型檔案
     timeout-minutes: 10  # 因為是即時下載，為避免因為伺服器問題卡住流程或耗盡額度，建議設定一個執行時限。此範例為十分鐘
-    cache: 'true' # 是否快取下載過的字型，如為假則每次執行都會重新下載字型檔案
   # 下一個步驟
   - name: your next step
     if: always()  # 避免字型安裝失敗導致中斷流程
